@@ -106,7 +106,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getMenuInflater().inflate(R.menu.zxing_lib_menu, menu);
         return true;
     }
 
