@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Start Scan"/>
+        android:text="Start Scan" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,14 +22,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Result："
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_scan_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
-            android:textSize="18sp"/>
+            android:textIsSelectable="true"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <EditText
@@ -37,19 +38,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="Input the text"/>
+        android:hint="Input the text" />
 
     <Button
         android:id="@+id/btn_add_qrcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Generate QRcode"/>
+        android:text="Generate QRcode" />
 
     <CheckBox
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logo"/>
+        android:text="Logo" />
 
     <ImageView
         android:id="@+id/iv_qr_image"
@@ -57,6 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/ic_launcher"/>
+        android:background="@mipmap/ic_launcher" />
 
 </LinearLayout>
