@@ -38,6 +38,7 @@ import java.util.Vector;
  */
 public class CaptureActivity extends AppCompatActivity implements Callback {
     public static final int REQUEST_CODE_TAKE_PHOTO_FROM_ALBUM = 0x00;//获取相册图片的请求码
+    public static final int RESULT_CODE_NOT_FIND_QR = -0x9999;//没有发现二维码的结果标志位
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
     private boolean hasSurface;
@@ -181,7 +182,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
             intent.putExtra(RESULT_KEY, resultString);
             setResult(Activity.RESULT_OK, intent);
         } else {
-            setResult(RESULT_CANCELED);
+            setResult(RESULT_CODE_NOT_FIND_QR);
         }
         finish();
     }
