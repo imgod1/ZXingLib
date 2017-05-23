@@ -1,7 +1,9 @@
 package com.kk.imgod.zxing_lib.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
@@ -67,7 +70,13 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_qr_capture);
-        initView();
+        PackageManager packageManager = getPackageManager();
+        if (packageManager.checkPermission(Manifest.permission.CAMERA, getApplicationContext().getPackageName()) == PackageManager.PERMISSION_GRANTED) {
+            initView();
+        } else {
+            Toast.makeText(this, "没有相机权限", Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
 
