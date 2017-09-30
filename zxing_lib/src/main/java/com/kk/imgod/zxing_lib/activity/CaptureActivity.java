@@ -34,7 +34,6 @@ import com.kk.imgod.zxing_lib.camera.CameraManager;
 import com.kk.imgod.zxing_lib.decoding.CaptureActivityHandler;
 import com.kk.imgod.zxing_lib.decoding.DecodeImage;
 import com.kk.imgod.zxing_lib.decoding.InactivityTimer;
-import com.kk.imgod.zxing_lib.utils.FlashLight;
 import com.kk.imgod.zxing_lib.utils.ImageUtils;
 import com.kk.imgod.zxing_lib.view.ViewfinderView;
 
@@ -43,6 +42,12 @@ import java.util.Vector;
 
 /**
  * 解析二维码的界面
+ * 如果扫描到了二维码 会返回给上个界面 key是此类的常量 RESULT_KEY
+ * 如果没有扫描到二维码 会返回请求失败的code给上个界面 code为 RESULT_CODE_NOT_FIND_QR
+ * 可以依赖下来之后自己修改界面什么的 使之更符合你自己app的主题
+ * 注意点:
+ * 因为这就是加一个二维码扫描lib而已 所以并没有对android 6.0+上的动态权限做适配
+ * 需要用户在自己的项目中 去适配动态权限申请
  */
 public class CaptureActivity extends AppCompatActivity implements Callback {
     public static final int REQUEST_CODE_TAKE_PHOTO_FROM_ALBUM = 0x00;//获取相册图片的请求码
@@ -202,6 +207,12 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
             handler = null;
         }
         CameraManager.get().closeDriver();
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_CANCELED);
+        super.onBackPressed();
     }
 
     @Override
