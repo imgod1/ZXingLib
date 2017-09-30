@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <SurfaceView
         android:id="@+id/preview_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <com.kk.imgod.zxing_lib.view.ViewfinderView
         android:id="@+id/viewfinder_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 
     <android.support.v7.widget.Toolbar
@@ -21,17 +21,33 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:fitsSystemWindows="true"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <TextView
-        android:id="@+id/txt_msg"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="80dp"
-        android:text="将二维码放入框内, 即可自动扫描"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="将二维码放入框内, 即可自动扫描"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"/>
+
+        <ImageView
+            android:id="@+id/img_flash"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/icon_flash"/>
+
+    </LinearLayout>
 
 
 </FrameLayout>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -21,6 +22,8 @@ import android.view.MenuItem;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -30,6 +33,7 @@ import com.kk.imgod.zxing_lib.camera.CameraManager;
 import com.kk.imgod.zxing_lib.decoding.CaptureActivityHandler;
 import com.kk.imgod.zxing_lib.decoding.DecodeImage;
 import com.kk.imgod.zxing_lib.decoding.InactivityTimer;
+import com.kk.imgod.zxing_lib.utils.FlashLight;
 import com.kk.imgod.zxing_lib.utils.ImageUtils;
 import com.kk.imgod.zxing_lib.view.ViewfinderView;
 
@@ -44,6 +48,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     public static final int RESULT_CODE_NOT_FIND_QR = -0x9999;//没有发现二维码的结果标志位
     private CaptureActivityHandler handler;
     private ViewfinderView viewfinderView;
+    private ImageView img_flash;
     private boolean hasSurface;
     private Vector<BarcodeFormat> decodeFormats;
     private String characterSet;
@@ -52,7 +57,9 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     private boolean playBeep;
     private static final float BEEP_VOLUME = 0.10f;
     private boolean vibrate;
+    private boolean isFlashOn = false;
 
+    private Camera camera;
 
     /**
      * 快速跳转方法
@@ -84,9 +91,25 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         //ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
         CameraManager.init(getApplication());
         viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
+        img_flash = (ImageView) findViewById(R.id.img_flash);
         hasSurface = false;
         inactivityTimer = new InactivityTimer(this);
         initTitle();
+        img_flash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isFlashOn = !isFlashOn;
+                Camera.Parameters parameter = camera.getParameters();
+                // TODO 开灯
+                if (isFlashOn) {
+                    parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                    camera.setParameters(parameter);
+                } else {  // 关灯
+                    parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                    camera.setParameters(parameter);
+                }
+            }
+        });
     }
 
     private Toolbar toolbar;
@@ -223,6 +246,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         if (!hasSurface) {
             hasSurface = true;
             initCamera(holder);
+            camera = CameraManager.getCamera();
         }
 
     }
@@ -230,7 +254,9 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
         hasSurface = false;
-
+        if (camera != null) {
+            CameraManager.get().stopPreview();
+        }
     }
 
 

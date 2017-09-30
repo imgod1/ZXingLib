@@ -59,7 +59,7 @@ public final class CameraManager {
 
     private final Context context;
     private final CameraConfigurationManager configManager;
-    private Camera camera;
+    private static Camera camera;
     private Rect framingRect;
     private Rect framingRectInPreview;
     private boolean initialized;
@@ -165,7 +165,7 @@ public final class CameraManager {
     /**
      * Tells the camera to stop drawing preview frames.
      */
-    public void stopPreview() {
+    public  void stopPreview() {
         if (camera != null && previewing) {
             if (!useOneShotPreviewCallback) {
                 camera.setPreviewCallback(null);
@@ -325,5 +325,11 @@ public final class CameraManager {
     public Context getContext() {
         return context;
     }
-
+    /**
+     * 获取相机的方法
+     * @return camera
+     */
+    public static Camera getCamera(){
+        return camera ;
+    }
 }
