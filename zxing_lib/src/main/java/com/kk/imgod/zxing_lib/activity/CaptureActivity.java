@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -71,6 +72,18 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
         Intent intent = new Intent(activity, CaptureActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 快速跳转方法
+     *
+     * @param fragment    源fragment
+     * @param requestCode 请求码
+     */
+    public static void actionStartForResult(Fragment fragment, int requestCode) {
+        Intent intent = new Intent(fragment.getContext(), CaptureActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     @Override
