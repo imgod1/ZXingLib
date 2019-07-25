@@ -15,7 +15,7 @@ Step 1. Add the JitPack repository to your build file
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.imgod1:ZXingLib:1.0.0'
+	        compile 'com.github.imgod1:ZXingLib:1.1.0'
 	}
   
 Step 3. use in code
