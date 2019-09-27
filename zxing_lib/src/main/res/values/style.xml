@@ -15,4 +15,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/qr_code_toolbar_text_size</item>
+        <item name="android:titleTextColor">@color/qr_code_toolbar_text_color</item>
+    </style>
+    <!--在宿主app的样式里面重新定义这四个变量即可控制扫描二维码的样式-->
+    <color name="qr_code_toolbar_text_color">#333333</color>
+    <dimen name="qr_code_toolbar_text_size">14sp</dimen>
+    <color name="qr_code_hint_text_color">#333333</color>
+    <dimen name="qr_code_hint_text_size">14sp</dimen>
 </resources>
