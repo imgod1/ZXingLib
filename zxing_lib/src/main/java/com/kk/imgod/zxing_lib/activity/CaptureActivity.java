@@ -35,6 +35,7 @@ import com.kk.imgod.zxing_lib.decoding.CaptureActivityHandler;
 import com.kk.imgod.zxing_lib.decoding.DecodeImage;
 import com.kk.imgod.zxing_lib.decoding.InactivityTimer;
 import com.kk.imgod.zxing_lib.utils.ImageUtils;
+import com.kk.imgod.zxing_lib.utils.StatusBarUtil;
 import com.kk.imgod.zxing_lib.view.ViewfinderView;
 
 import java.io.IOException;
@@ -74,9 +75,7 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
      * @param requestCode 请求码
      */
     public static void actionStartForResult(Activity activity, int requestCode) {
-        Intent intent = new Intent(activity, CaptureActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.startActivityForResult(intent, requestCode);
+        actionStartForResult(activity, requestCode, COME_TYPE_LIGHT);
     }
 
     /**
@@ -86,14 +85,50 @@ public class CaptureActivity extends AppCompatActivity implements Callback {
      * @param requestCode 请求码
      */
     public static void actionStartForResult(Fragment fragment, int requestCode) {
+        actionStartForResult(fragment, requestCode, COME_TYPE_LIGHT);
+    }
+
+
+    public static final int COME_TYPE_DARK = 0x00;
+    public static final int COME_TYPE_LIGHT = 0x01;
+    private int comeType;
+
+    /**
+     * 快速跳转方法
+     *
+     * @param activity    源Activity
+     * @param requestCode 请求码
+     */
+    public static void actionStartForResult(Activity activity, int requestCode, int comeType) {
+        Intent intent = new Intent(activity, CaptureActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("comeType", comeType);
+        activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 快速跳转方法
+     *
+     * @param fragment    源fragment
+     * @param requestCode 请求码
+     */
+    public static void actionStartForResult(Fragment fragment, int requestCode, int comeType) {
         Intent intent = new Intent(fragment.getContext(), CaptureActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("comeType", comeType);
         fragment.startActivityForResult(intent, requestCode);
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        comeType = getIntent().getIntExtra("comeType", COME_TYPE_LIGHT);
+        if (comeType == COME_TYPE_LIGHT) {
+            StatusBarUtil.setLightMode(this);
+        } else {
+            StatusBarUtil.setDarkMode(this);
+        }
+
         setContentView(R.layout.layout_qr_capture);
         PackageManager packageManager = getPackageManager();
         if (packageManager.checkPermission(Manifest.permission.CAMERA, getApplicationContext().getPackageName()) == PackageManager.PERMISSION_GRANTED) {

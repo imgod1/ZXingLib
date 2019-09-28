@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //打开扫描界面扫描条形码或二维码
-                CaptureActivity.actionStartForResult(MainActivity.this, 0);
+                CaptureActivity.actionStartForResult(MainActivity.this, 0,CaptureActivity.COME_TYPE_LIGHT);
             }
         });
 
