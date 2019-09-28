@@ -54,3 +54,10 @@ Step 3. use in code
  * 因为这就是加一个二维码扫描lib而已 所以并没有对android 6.0+上的动态权限做适配
  * 需要用户在自己的项目中 去适配动态权限申请
  */
+
+新增加定义了样式 在app的样式里面重新定义这四个东西 即可达到控制扫描界面的ui
+<!--在宿主app的样式里面重新定义这四个变量即可控制扫描二维码的样式-->
+    <color name="qr_code_toolbar_text_color">#333333</color>
+    <dimen name="qr_code_toolbar_text_size">14sp</dimen>
+    <color name="qr_code_hint_text_color">#333333</color>
+    <dimen name="qr_code_hint_text_size">14sp</dimen>
